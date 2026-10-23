@@ -25,7 +25,10 @@ def preparar_app() -> None:
 
 def requisitos(hu: str) -> str:
     carpeta = SALIDA / hu
-    return (f"## Reglas de negocio\n{(RAIZ / 'contexto' / 'reglas_negocio.md').read_text(encoding='utf-8')}\n"
+    historia = next((RAIZ / "historias").glob(f"{hu}-*.md"), None)       # contenido NO confiable (sesión 4)
+    texto = historia.read_text(encoding="utf-8") if historia else "(no encontrada)"
+    return (f"## Historia de usuario original\n{texto}\n"
+            f"## Reglas de negocio\n{(RAIZ / 'contexto' / 'reglas_negocio.md').read_text(encoding='utf-8')}\n"
             f"## Criterios de aceptación de {hu}\n{(carpeta / 'criterios.feature').read_text(encoding='utf-8')}\n"
             f"## Casos de prueba que deberán pasar\n{(carpeta / 'casos_prueba.json').read_text(encoding='utf-8')}")
 

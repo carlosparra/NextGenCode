@@ -17,6 +17,7 @@ from agentes.disenador_pruebas import disenar_casos
 from flujos.verificacion import verificar_app
 from flujos.util import dibuja_grafo
 MAX_INTENTOS = 2
+MAX_RECHAZOS = 3                     # todo bucle tiene un límite, también el de revisar el plan
 
 
 class Estado(TypedDict, total=False):
@@ -28,6 +29,7 @@ class Estado(TypedDict, total=False):
     plan: str
     comentarios: str
     plan_aprobado: bool
+    rechazos: int
     intentos: int
     app_ok: bool
     log_verificacion: str
@@ -72,11 +74,15 @@ def aprobar_plan(s: Estado) -> Estado:
     decision = interrupt({"plan": s["plan"], "pregunta": "¿Aprobar el plan? Escribe 'si' o tus comentarios"})
     if decision.strip().lower() == "si":
         return {"plan_aprobado": True, "bitacora": ["Plan aprobado por una persona"]}
-    return {"plan_aprobado": False, "comentarios": decision, "bitacora": [f"Plan rechazado: {decision}"]}
+    rechazos = s.get("rechazos", 0) + 1
+    return {"plan_aprobado": False, "comentarios": decision, "rechazos": rechazos,
+            "bitacora": [f"Plan rechazado ({rechazos} de {MAX_RECHAZOS}): {decision}"]}
 
 
-def despues_de_aprobar(s: Estado) -> Literal["construir", "planificar"]:
-    return "construir" if s["plan_aprobado"] else "planificar"
+def despues_de_aprobar(s: Estado) -> Literal["construir", "planificar", "fin"]:
+    if s["plan_aprobado"]:
+        return "construir"
+    return "planificar" if s["rechazos"] < MAX_RECHAZOS else "fin"
 
 
 def construir(s: Estado) -> Estado:

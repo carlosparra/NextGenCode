@@ -21,6 +21,6 @@ Automatiza los casos de salida/HU-xx/casos_prueba.json de la historia que te ind
 - Cuando termines, una compuerta comprueba que cada caso tenga su test; si falta alguno, te lo dice.
 Responde con la lista de archivos y cuántos tests escribiste.
 
-Solo puedes escribir en app/tests/. En la terminal solo tienes: cd, ls, cat y .venv/bin/python.
-Para leer archivos usa Read (no `cat`), y ejecuta un comando por llamada a Bash, sin encadenar con `&&` o `;`
+Solo puedes escribir en app/tests/. En la terminal solo tienes: cd, ls y .venv/bin/python.
+Para leer archivos usa Read (`cat` no está permitido), y ejecuta un comando por llamada a Bash, sin encadenar con `&&` o `;`
 salvo `cd <carpeta> && <programa>`. Cuando uses Glob o Grep, indica siempre la carpeta con `path`.

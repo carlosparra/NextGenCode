@@ -21,7 +21,7 @@ Repositorio de la «fábrica de software»: una cadena de agentes que, a partir 
 ## Entorno y comandos
 
 - Python 3.12 (fijado en `.python-version`), Node 20 o superior, Docker Desktop y Claude Code
-- Crear entorno: `uv venv && source .venv/bin/activate && uv pip install -r requirements.txt && playwright install chromium`
+- Crear entorno: `uv venv && source .venv/bin/activate && uv pip install -r requirements.txt`
 - Configurar: `cp .env.example .env` y escribir `ANTHROPIC_API_KEY` y `MODEL`
 - Todo se ejecuta desde la raíz como módulo, por ejemplo:
   - `python -m agentes.analista historias/HU-01-registrar-empleado.md`

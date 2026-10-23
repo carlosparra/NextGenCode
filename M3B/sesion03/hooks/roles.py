@@ -42,15 +42,15 @@ ROLES = {
                       entrega="plan.md"),
     "desarrollador": Rol(lee=["contexto/*", "salida/*", "app/*"],
                          escribe=["app/backend/*", "app/frontend/*"],
-                         programas={"cd", "ls", "cat", "mkdir", "npm", "npx", "node", ".venv/bin/python"},
+                         programas={"cd", "ls", "mkdir", "npm", "npx", "node", ".venv/bin/python"},
                          verifica="app", max_intentos=2),
     # Sesión 3 · agentes 4 y 5: cada uno escribe SOLO sus archivos y no termina hasta que su verificación pasa
     "despliegue": Rol(lee=["contexto/*", "app/*"],
                       escribe=DOCKER,
-                      programas={"cd", "ls", "cat", "docker", "curl", "sleep"},
+                      programas={"cd", "ls", "docker", "curl", "sleep"},
                       verifica="despliegue", max_intentos=2),
     "automatizador": Rol(lee=["contexto/*", "salida/*", "app/*"],
                          escribe=["app/tests/*"],
-                         programas={"cd", "ls", "cat", ".venv/bin/python"},
+                         programas={"cd", "ls", ".venv/bin/python"},
                          verifica="pruebas", max_intentos=2),
 }

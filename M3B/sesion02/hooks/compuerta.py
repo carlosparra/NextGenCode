@@ -39,7 +39,10 @@ def revisar(rol, hu: str) -> list[str]:
     problemas = []
     if rol.entrega:
         ruta = RAIZ / "salida" / hu / rol.entrega
-        problemas += problemas_de(ruta) if ruta.exists() else [f"No escribiste {ruta.relative_to(RAIZ)}."]
+        encontrados = problemas_de(ruta) if ruta.exists() else [f"No escribiste {ruta.relative_to(RAIZ)}."]
+        if encontrados is None:                   # falla cerrado: una entrega sin validador nunca pasa sola
+            encontrados = [f"La compuerta no sabe validar {rol.entrega}; agrega su validador en validadores/validar.py."]
+        problemas += encontrados
     if rol.verifica and not problemas:
         from verificacion import verificar       # se importa solo si hace falta (sesión 2 en adelante)
         ok, log = verificar(rol.verifica, hu)

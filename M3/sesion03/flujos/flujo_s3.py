@@ -57,8 +57,14 @@ def despues_de_verificar(s: Estado) -> list[str] | Literal["construir", "fin"]:
     return "construir" if s["intentos"] < s2.MAX_INTENTOS else "fin"
 
 
-def listo(s: Estado) -> Estado:
-    return {"bitacora": ["Despliegue y pruebas listos"]}               # punto de unión de las ramas
+def listo(s: Estado) -> Estado:                                        # punto de unión de las ramas
+    ok = s["despliegue_ok"] and s["pruebas_ok"]
+    return {"bitacora": ["Despliegue y pruebas listos" if ok else "Despliegue o pruebas con FALLA"]}
+
+
+def fin(s: Estado) -> Estado:
+    """Como s2.fin, pero la app solo está LISTA si además pasaron el despliegue y las pruebas."""
+    return s2.fin({**s, "app_ok": s.get("app_ok") and s.get("despliegue_ok") and s.get("pruebas_ok")})
 
 
 def construir_grafo():
@@ -67,7 +73,7 @@ def construir_grafo():
                        ("disenar_casos", s2.disenar), ("planificar", s2.planificar),
                        ("aprobar_plan", s2.aprobar_plan), ("construir", s2.construir),
                        ("verificar", s2.verificar), ("desplegar", desplegar), ("automatizar", automatizar),
-                       ("listo", listo), ("fin", s2.fin)]:
+                       ("listo", listo), ("fin", fin)]:
         g.add_node(nombre, fn)
     g.add_edge(START, "analizar")
     g.add_conditional_edges("analizar", s2.despues_de_analizar)

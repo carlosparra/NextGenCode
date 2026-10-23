@@ -45,6 +45,8 @@ if __name__ == "__main__":
 
     ruta = RAIZ / "salida" / hu.group() / rol.entrega
     problemas = problemas_de(ruta) if ruta.exists() else [f"No escribiste {ruta.relative_to(RAIZ)}."]
+    if problemas is None:                         # falla cerrado: una entrega sin validador nunca pasa sola
+        problemas = [f"La compuerta no sabe validar {rol.entrega}; agrega su validador en validadores/validar.py."]
     if not problemas:
         sys.exit(0)                               # entrega válida: puede terminar
 

@@ -13,13 +13,15 @@ DEFENSAS=0 las apaga, SOLO en clase, para ver el ataque funcionar (hooks/rol.py 
 """
 import json
 import os
+import re
 import sys
 import time
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
 SECRETOS = (".env", "secretos")
-PALABRAS_SECRETAS = (".env", "secretos", "printenv", "environ", "env ")
+# \b = borde de palabra: bloquea `env` o `printenv`, pero no `uv venv` ni `.venv/bin/python`
+PALABRAS_SECRETAS = re.compile(r"\.env\b|secretos|\bprintenv\b|\benviron\b|\benv\b")
 SENUELO = "BANDERA-DEMO"
 
 
@@ -47,7 +49,7 @@ def revisar(herramienta: str, entrada: dict) -> None:
         comando = entrada.get("command", "")
         if "`" in comando or "$(" in comando:
             bloquear("sustitución de comandos no permitida")
-        if any(p in comando.lower() for p in PALABRAS_SECRETAS):
+        if PALABRAS_SECRETAS.search(comando.lower()):
             bloquear("el comando menciona secretos o variables de entorno")
     elif herramienta in ("Write", "Edit", "MultiEdit"):
         contenido = entrada.get("content") or entrada.get("new_string") or json.dumps(entrada.get("edits", ""))

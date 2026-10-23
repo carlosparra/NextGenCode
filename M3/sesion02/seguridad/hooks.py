@@ -11,11 +11,14 @@ import os
 import re
 import time
 from pathlib import Path
+from urllib.parse import urlparse
 
 from claude_agent_sdk import HookMatcher
 
 RAIZ = Path(__file__).resolve().parent.parent
 PALABRAS_SECRETAS = (".env", "secretos", "printenv", "environ")
+HOSTS_LOCALES = {"localhost", "127.0.0.1"}
+VALOR_DE_OPCION = {"-o", "-w", "-H", "-X", "-d", "-m"}   # opciones de curl seguidas de un valor
 
 
 def _denegar(input_data: dict, motivo: str) -> dict:
@@ -59,21 +62,36 @@ def confinar_lectura(base: Path):
 
 
 def comandos_permitidos(base: Path, programas: set[str]):
-    """Bash solo con programas de la lista; sin sustituciones, sin salir de `base`, sin tocar secretos."""
+    """Bash solo con programas de la lista; sin sustituciones, sin salir de `base`, sin tocar secretos.
+
+    También revisa los argumentos: una ruta (`cat /etc/passwd`, `ls ../..`) no puede salir de `base`
+    y una URL (`curl https://...`) solo puede ir a localhost, para que nada salga a internet.
+    """
     async def hook(input_data, tool_use_id, context):
         comando = input_data["tool_input"].get("command", "")
         if "`" in comando or "$(" in comando:
             return _denegar(input_data, "Sustitución de comandos no permitida")
         if any(p in comando.lower() for p in PALABRAS_SECRETAS):
             return _denegar(input_data, "El comando menciona secretos o variables de entorno")
+        actual = base                                                   # carpeta en la que va el comando
         for tramo in re.split(r"&&|\|\||;|\|", comando):
             partes = tramo.strip().split()
             if not partes:
                 continue
             if partes[0] not in programas:
                 return _denegar(input_data, f"Programa no permitido: {partes[0]}. Permitidos: {sorted(programas)}")
-            if partes[0] == "cd" and len(partes) > 1 and not _resolver(base, partes[1]).is_relative_to(base.resolve()):
-                return _denegar(input_data, f"No puedes salir de {base.name}/")
+            for i, arg in enumerate(partes[1:], start=1):
+                arg = arg.strip("'\"")
+                if arg.startswith("-") or partes[i - 1] in VALOR_DE_OPCION:
+                    continue                                            # una opción o su valor, no una ruta
+                if partes[0] == "curl" or "://" in arg:                 # curl sin http:// también va a internet
+                    destino = urlparse(arg if "://" in arg else f"http://{arg}").hostname
+                    if destino not in HOSTS_LOCALES:
+                        return _denegar(input_data, f"Solo puedes conectarte a localhost: {arg}")
+                elif arg.startswith("~") or "$" in arg or not _resolver(actual, arg).is_relative_to(base.resolve()):
+                    return _denegar(input_data, f"No puedes salir de {base.name}/: {arg}")
+            if partes[0] == "cd" and len(partes) > 1:
+                actual = _resolver(actual, partes[1])
         return {}
     return hook
 

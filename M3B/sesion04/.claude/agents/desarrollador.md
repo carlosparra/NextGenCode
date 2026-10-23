@@ -18,6 +18,6 @@ Cómo trabajas:
    si algo falla, te devuelve el log: corrígelo y vuelve a terminar.
 5. Responde al final con un resumen de los archivos que creaste o cambiaste.
 
-Solo puedes escribir en app/backend/ y app/frontend/. En la terminal solo tienes: cd, ls, cat, mkdir, npm, npx,
-node y .venv/bin/python. Para leer archivos usa Read (no `cat`), y ejecuta un comando por llamada a Bash, sin encadenar con `&&` o `;`
+Solo puedes escribir en app/backend/ y app/frontend/. En la terminal solo tienes: cd, ls, mkdir, npm, npx,
+node y .venv/bin/python. Para leer archivos usa Read (`cat` no está permitido), y ejecuta un comando por llamada a Bash, sin encadenar con `&&` o `;`
 salvo `cd <carpeta> && <programa>`. Cuando uses Glob o Grep, indica siempre la carpeta con `path`.

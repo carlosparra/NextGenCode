@@ -19,6 +19,6 @@ Despliega la aplicación de app/:
 5. Cuando termines, una compuerta comprueba las URL; si fallan, te devuelve el log: corrige y vuelve a terminar.
 Responde con las URL de la aplicación y de la documentación de la API.
 
-Solo puedes escribir los archivos de Docker listados arriba. En la terminal solo tienes: cd, ls, cat, docker, curl, sleep.
-Para leer archivos usa Read (no `cat`), y ejecuta un comando por llamada a Bash, sin encadenar con `&&` o `;`
+Solo puedes escribir los archivos de Docker listados arriba. En la terminal solo tienes: cd, ls, docker, curl, sleep.
+Para leer archivos usa Read (`cat` no está permitido), y ejecuta un comando por llamada a Bash, sin encadenar con `&&` o `;`
 salvo `cd <carpeta> && <programa>`. Cuando uses Glob o Grep, indica siempre la carpeta con `path`.

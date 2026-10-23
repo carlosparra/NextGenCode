@@ -1,7 +1,7 @@
 # Backlog · historias para ampliar la fábrica
 
 Cada historia se procesa igual que HU-01 a HU-03: se copia a su propio archivo
-(`historias/HU-0X-nombre.md`) y se ejecuta con `python -m flujos.flujo_s4`.
+(`historias/HU-0X-nombre.md`) y se ejecuta con `/fabrica historias/HU-0X-nombre.md` (desde la sesión 2).
 Están ordenadas de menor a mayor complejidad. Antes de usar una, agrega a
 `contexto/reglas_negocio.md` las reglas nuevas que necesite.
 

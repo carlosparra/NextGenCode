@@ -39,6 +39,6 @@ ROLES = {
                       entrega="plan.md"),
     "desarrollador": Rol(lee=["contexto/*", "salida/*", "app/*"],
                          escribe=["app/backend/*", "app/frontend/*"],
-                         programas={"cd", "ls", "cat", "mkdir", "npm", "npx", "node", ".venv/bin/python"},
+                         programas={"cd", "ls", "mkdir", "npm", "npx", "node", ".venv/bin/python"},
                          verifica="app", max_intentos=2),
 }
