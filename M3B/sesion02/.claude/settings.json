@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./.env)",
+      "Read(./**/.env)",
+      "Read(./secretos_demo.txt)",
+      "WebFetch",
+      "WebSearch"
+    ],
+    "allow": [
+      "Bash(.venv/bin/python -m validadores.validar *)",
+      "Bash(.venv/bin/python -m validadores.preguntas *)",
+      "Bash(.venv/bin/python -m verificacion *)",
+      "Bash(.venv/bin/python -c *)",
+      "Bash(cd app/*)",
+      "Bash(ls *)",
+      "Bash(cat app/*)",
+      "Bash(mkdir app/*)",
+      "Bash(mkdir -p app/*)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(node *)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Glob|Grep|Write|Edit|MultiEdit|NotebookEdit|Bash",
+        "hooks": [{"type": "command", "command": "\"$CLAUDE_PROJECT_DIR/.venv/bin/python\" \"$CLAUDE_PROJECT_DIR/hooks/rol.py\""}]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [{"type": "command", "timeout": 900,
+                   "command": "\"$CLAUDE_PROJECT_DIR/.venv/bin/python\" \"$CLAUDE_PROJECT_DIR/hooks/compuerta.py\""}]
+      }
+    ]
+  }
+}
