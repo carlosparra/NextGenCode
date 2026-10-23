@@ -30,6 +30,12 @@ cp .env.example .env        # escribe ANTHROPIC_API_KEY y MODEL
 5. El código queda en `app/backend` y `app/frontend`. Compruébalo con
    `python -c "from flujos.verificacion import verificar_app; print(verificar_app()[0])"` (debe imprimir `True`).
 
+**En macOS: `zsh: command not found: python`.** macOS solo trae `python3`; el comando `python` aparece al activar el
+entorno virtual con `source .venv/bin/activate`, y hay que activarlo **en cada terminal nueva**. Si el entorno no
+existe, créalo con `uv venv` y `uv pip install -r requirements.txt`. También puedes llamar al Python del entorno
+directamente: `.venv/bin/python -m ...`. No uses `python3` a secas: es el del sistema y no tiene las dependencias del
+curso, así que falla con `ModuleNotFoundError`.
+
 ## Uso
 
 ```bash

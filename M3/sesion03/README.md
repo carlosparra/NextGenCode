@@ -30,6 +30,12 @@ cp .env.example .env        # escribe ANTHROPIC_API_KEY y MODEL
 4. El flujo dice **LISTA** solo si pasan la app, el despliegue **y** las pruebas; si no, `ESCALAR A UNA PERSONA`.
 5. La app queda en http://localhost:8080 y la API en http://localhost:8000/docs. Apágala con `cd app && docker compose down`.
 
+**En macOS: `zsh: command not found: python`.** macOS solo trae `python3`; el comando `python` aparece al activar el
+entorno virtual con `source .venv/bin/activate`, y hay que activarlo **en cada terminal nueva**. Si el entorno no
+existe, créalo con `uv venv` y `uv pip install -r requirements.txt`. También puedes llamar al Python del entorno
+directamente: `.venv/bin/python -m ...`. No uses `python3` a secas: es el del sistema y no tiene las dependencias del
+curso, así que falla con `ModuleNotFoundError`.
+
 ## Uso
 
 ```bash

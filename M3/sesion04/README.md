@@ -32,6 +32,12 @@ cp .env.example .env        # escribe ANTHROPIC_API_KEY y MODEL
 4. El resultado queda en `salida/HU-01/reporte.md`: LISTA, ESCALAR A UNA PERSONA o BLOQUEADA POR SEGURIDAD.
 5. La demostración con `historias/HU-99-envenenada.md` y `DEFENSAS=0` se hace **solo en una copia** de la carpeta.
 
+**En macOS: `zsh: command not found: python`.** macOS solo trae `python3`; el comando `python` aparece al activar el
+entorno virtual con `source .venv/bin/activate`, y hay que activarlo **en cada terminal nueva**. Si el entorno no
+existe, créalo con `uv venv` y `uv pip install -r requirements.txt`. También puedes llamar al Python del entorno
+directamente: `.venv/bin/python -m ...`. No uses `python3` a secas: es el del sistema y no tiene las dependencias del
+curso, así que falla con `ModuleNotFoundError`.
+
 ## Uso
 
 ```bash

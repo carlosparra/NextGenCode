@@ -70,6 +70,12 @@ Los hooks se ejecutan con `.venv/bin/python`, así que el entorno debe existir e
    `python -m validadores.validar salida/HU-01/criterios.feature` y `python -m validadores.validar salida/HU-01/casos_prueba.json`.
 6. Repite con `HU-02` y `HU-03`.
 
+**En macOS: `zsh: command not found: python`.** macOS solo trae `python3`; el comando `python` aparece al activar el
+entorno virtual con `source .venv/bin/activate`, y hay que activarlo **en cada terminal nueva**. Si el entorno no
+existe, créalo con `uv venv` y `uv pip install -r requirements.txt`. También puedes llamar al Python del entorno
+directamente: `.venv/bin/python -m ...`. No uses `python3` a secas: es el del sistema y no tiene las dependencias del
+curso, así que falla con `ModuleNotFoundError`.
+
 ## Uso
 
 Dentro de Claude Code (interactivo):

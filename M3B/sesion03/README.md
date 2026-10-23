@@ -54,6 +54,12 @@ claude            # acepta el diálogo de confianza y, si te lo pregunta, el ser
 3. Comprueba cada rama con `python -m verificacion despliegue` y `python -m verificacion pruebas HU-01`.
 4. La app queda en http://localhost:8080. Apágala con `cd app && docker compose down`.
 
+**En macOS: `zsh: command not found: python`.** macOS solo trae `python3`; el comando `python` aparece al activar el
+entorno virtual con `source .venv/bin/activate`, y hay que activarlo **en cada terminal nueva**. Si el entorno no
+existe, créalo con `uv venv` y `uv pip install -r requirements.txt`. También puedes llamar al Python del entorno
+directamente: `.venv/bin/python -m ...`. No uses `python3` a secas: es el del sistema y no tiene las dependencias del
+curso, así que falla con `ModuleNotFoundError`.
+
 ## Uso
 
 ```
