@@ -22,6 +22,16 @@ playwright install chromium
 cp .env.example .env        # escribe ANTHROPIC_API_KEY y MODEL
 ```
 
+## Cómo correr los agentes
+
+1. Activa el entorno, revisa `.env`, enciende Docker y ten instalado el navegador de Playwright (`playwright install chromium`).
+2. `flujos.flujo_s4` empieza con el **filtro de seguridad**: si la historia es sospechosa, se detiene (BLOQUEADA POR SEGURIDAD)
+   sin gastar en los demás agentes.
+3. Después hace lo de la sesión 3 y corre las **pruebas E2E** contra la app desplegada. Si fallan, el **triage** manda
+   corregir al responsable y vuelve a probar (máximo 2 ciclos).
+4. El resultado queda en `salida/HU-01/reporte.md`: LISTA, ESCALAR A UNA PERSONA o BLOQUEADA POR SEGURIDAD.
+5. La demostración con `historias/HU-99-envenenada.md` y `DEFENSAS=0` se hace **solo en una copia** de la carpeta.
+
 ## Uso
 
 ```bash

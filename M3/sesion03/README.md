@@ -21,6 +21,15 @@ playwright install chromium
 cp .env.example .env        # escribe ANTHROPIC_API_KEY y MODEL
 ```
 
+## Cómo correr los agentes
+
+1. Activa el entorno, revisa `.env` y **enciende Docker Desktop** (`docker info` debe responder).
+2. `flujos.flujo_s3` hace lo mismo que el de la sesión 2 y, si la app verifica, lanza **en paralelo** al agente de
+   despliegue (Docker Compose) y al automatizador (pruebas pytest + Playwright).
+3. Responde las mismas pausas de la sesión 2: preguntas abiertas y aprobación del plan.
+4. El flujo dice **LISTA** solo si pasan la app, el despliegue **y** las pruebas; si no, `ESCALAR A UNA PERSONA`.
+5. La app queda en http://localhost:8080 y la API en http://localhost:8000/docs. Apágala con `cd app && docker compose down`.
+
 ## Uso
 
 ```bash

@@ -56,6 +56,20 @@ claude            # la primera vez: acepta el diálogo «¿confías en esta carp
 El diálogo de confianza importa: sin él, Claude Code ignora los permisos `allow` del proyecto.
 Los hooks se ejecutan con `.venv/bin/python`, así que el entorno debe existir en la raíz de la sesión.
 
+## Cómo correr los agentes
+
+1. Activa el entorno (`source .venv/bin/activate`) y quita la clave de API si la tienes: `unset ANTHROPIC_API_KEY`.
+   Si nunca iniciaste sesión, corre `claude auth login` (plan Pro o Max).
+2. Abre `claude` una vez en esta carpeta y acepta «¿confías en esta carpeta?».
+3. Corre **primero `/criterios` y después `/casos`**: el diseñador trabaja con lo que deja el analista.
+   - `/criterios` lanza al subagente **analista**, que escribe `salida/HU-01/criterios.feature`.
+   - `/casos` lanza al **diseñador de pruebas**, que escribe `salida/HU-01/casos_prueba.json`.
+4. Al terminar cada uno, la **compuerta** valida su entrega y, si tiene problemas, lo regresa a corregir (máximo 3 veces).
+   Claude Code te puede pedir permiso para escribir el archivo: apruébalo o pulsa Shift+Tab para editar sin preguntar.
+5. Comprueba el resultado con el mismo juez de la compuerta:
+   `python -m validadores.validar salida/HU-01/criterios.feature` y `python -m validadores.validar salida/HU-01/casos_prueba.json`.
+6. Repite con `HU-02` y `HU-03`.
+
 ## Uso
 
 Dentro de Claude Code (interactivo):

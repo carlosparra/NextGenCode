@@ -50,6 +50,15 @@ que lee la historia casi no tiene poder, los hooks bloquean las lecturas peligro
 
 Los de la sesión 3 (Docker encendido, `playwright install chromium`).
 
+## Cómo correr los agentes
+
+1. Prepara la sesión como en la 3 y ten instalado el navegador de Playwright (`playwright install chromium`).
+2. `/fabrica` empieza con el **filtro de seguridad** (paso 0): si la historia es sospechosa, se detiene sin que el
+   orquestador la lea.
+3. Al final corre las **pruebas E2E** y, si fallan, el **triage** manda corregir al responsable (máximo 2 ciclos).
+4. El resultado queda en `salida/HU-01/reporte.md`, y `auditoria.jsonl` registra cada herramienta que usó cada agente.
+5. La demostración con `historias/HU-99-envenenada.md` y `DEFENSAS=0` se hace **solo en una copia** de la carpeta.
+
 ## Uso
 
 ```

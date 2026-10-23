@@ -53,6 +53,17 @@ uv pip install -r requirements.txt
 claude            # la primera vez: acepta el diálogo de confianza y sal con /exit
 ```
 
+## Cómo correr los agentes
+
+1. Prepara la sesión igual que en la 1: entorno activo, `unset ANTHROPIC_API_KEY` y la carpeta marcada como confiable.
+   Necesitas Node para el frontend.
+2. `/fabrica` corre todo en orden: criterios → casos → plan → **tu aprobación** → desarrollador → verificación.
+3. Te pregunta en dos momentos: en el **paso 3**, si el analista dejó preguntas abiertas, y en el **paso 5**, para
+   aprobar el plan (con comentarios, el arquitecto lo rehace; máximo 2 rechazos). Con `claude -p`, agrega `--aprobar`.
+4. Al terminar el desarrollador, la compuerta corre la verificación de la app y lo regresa si el backend no arranca o el
+   frontend no compila (máximo 2 veces).
+5. Comprueba con `python -m verificacion app` y revisa la bitácora en `salida/HU-01/bitacora.md`.
+
 ## Uso
 
 ```

@@ -17,6 +17,19 @@ uv pip install -r requirements.txt
 cp .env.example .env        # escribe ANTHROPIC_API_KEY y MODEL
 ```
 
+## Cómo correr los agentes
+
+1. Activa el entorno (`source .venv/bin/activate`) y revisa que `.env` tenga `ANTHROPIC_API_KEY` y `MODEL`.
+2. Corre **primero el analista y después el diseñador**: el segundo trabaja con lo que deja el primero.
+   - El **analista** lee la historia y `contexto/`, y escribe `salida/HU-01/criterios.feature`.
+   - El **diseñador** lee esos criterios y escribe `salida/HU-01/casos_prueba.json`.
+3. Cada uno imprime cuántos escenarios o casos escribió. Revisa el resultado con
+   `cat salida/HU-01/criterios.feature` y `cat salida/HU-01/casos_prueba.json`.
+4. Repite con `HU-02` y `HU-03`.
+
+En esta carpeta el bucle de `agentes/base.py` está **sin terminar a propósito** (Lab 1A): hasta que lo completes,
+el analista falla con `NotImplementedError`. La carpeta de la sesión 2 ya lo trae resuelto.
+
 ## Uso
 
 ```bash

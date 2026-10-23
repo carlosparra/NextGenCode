@@ -18,6 +18,18 @@ uv pip install -r requirements.txt
 cp .env.example .env        # escribe ANTHROPIC_API_KEY y MODEL
 ```
 
+## Cómo correr los agentes
+
+1. Activa el entorno y revisa `.env` (`ANTHROPIC_API_KEY`, `MODEL` y `PRESUPUESTO_USD`). Necesitas Node para el frontend.
+2. Los agentes 1 y 2 se siguen corriendo por separado, como en la sesión 1. La **fábrica completa** es `flujos.flujo_s2`:
+   analista → diseñador → plan → **tu aprobación** → desarrollador → verificación.
+3. El flujo **se detiene a preguntarte** en la terminal:
+   - si el analista dejó preguntas abiertas: `si` para seguir; cualquier otra respuesta detiene el flujo;
+   - al mostrarte el plan: `si` lo aprueba; si escribes comentarios, el agente planifica de nuevo (máximo 3 rechazos).
+4. Al terminar imprime `=== HU-01 · app LISTA · … USD ===` (o `ESCALAR A UNA PERSONA`) y la bitácora.
+5. El código queda en `app/backend` y `app/frontend`. Compruébalo con
+   `python -c "from flujos.verificacion import verificar_app; print(verificar_app()[0])"` (debe imprimir `True`).
+
 ## Uso
 
 ```bash

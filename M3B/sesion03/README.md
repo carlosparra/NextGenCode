@@ -45,6 +45,15 @@ docker info > /dev/null && echo "Docker OK"
 claude            # acepta el diálogo de confianza y, si te lo pregunta, el servidor MCP «directorio»
 ```
 
+## Cómo correr los agentes
+
+1. Prepara la sesión como en la 2 y **enciende Docker Desktop** (`docker info` debe responder). La primera vez,
+   aprueba el servidor MCP `directorio` cuando Claude Code te lo pregunte.
+2. `/fabrica` hace lo de la sesión 2 y, en el **paso 8**, lanza a la vez al subagente de **despliegue** y al
+   **automatizador**. Cada uno tiene su compuerta.
+3. Comprueba cada rama con `python -m verificacion despliegue` y `python -m verificacion pruebas HU-01`.
+4. La app queda en http://localhost:8080. Apágala con `cd app && docker compose down`.
+
 ## Uso
 
 ```
