@@ -1,1 +1,8 @@
 .DS_Store
+
+# Lo que generan los agentes al correr una sesión: vive solo en tu máquina
+M3*/sesion0*/salida/*
+!M3*/sesion0*/salida/.gitkeep
+M3*/sesion0*/app/*
+!M3*/sesion0*/app/.gitkeep
+M3*/sesion0*/auditoria.jsonl
