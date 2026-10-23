@@ -3,7 +3,7 @@
 Repositorio de la «fábrica de software»: una cadena de agentes que, a partir de una historia de usuario,
 escribe criterios de aceptación, casos de prueba, el código de una aplicación de gestión de empleados
 (base de datos, API y front-end), la despliega y la prueba de punta a punta. En esta versión **cada agente
-es un subagente de Claude Code** y se usa con `claude login` (sin ANTHROPIC_API_KEY).
+es un subagente de Claude Code** y se usa con `claude auth login` (sin ANTHROPIC_API_KEY).
 
 ## Estructura
 

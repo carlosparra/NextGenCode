@@ -2,7 +2,7 @@
 
 En M3 los ejemplos llamaban a `Anthropic().messages.create(...)`, que necesita ANTHROPIC_API_KEY.
 En M3B llamamos a Claude Code en modo no interactivo (`claude -p`), que usa tu sesión de
-`claude login`. Es el mismo modelo; cambia quién ejecuta el bucle y las herramientas.
+`claude auth login`. Es el mismo modelo; cambia quién ejecuta el bucle y las herramientas.
 
     claude("pregunta")                         → texto
     claude("extrae...", esquema=Modelo)         → dict que cumple el JSON Schema de un modelo Pydantic
@@ -38,7 +38,7 @@ def _comando(prompt: str, formato: str, herramientas: str, sistema: str | None, 
 
 
 def _entorno() -> dict:
-    """Sin ANTHROPIC_API_KEY a propósito: así Claude Code usa tu suscripción (claude login)."""
+    """Sin ANTHROPIC_API_KEY a propósito: así Claude Code usa tu suscripción (claude auth login)."""
     return {k: v for k, v in os.environ.items() if k != "ANTHROPIC_API_KEY"}
 
 

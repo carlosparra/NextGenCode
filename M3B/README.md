@@ -1,12 +1,12 @@
 # M3B · La fábrica de software con agentes de Claude Code (sin API key)
 
 La misma fábrica de M3 —historia de usuario → criterios → casos → código → despliegue → pruebas E2E—,
-pero **cada agente es un subagente de Claude Code** y todo corre con tu sesión de `claude login`
+pero **cada agente es un subagente de Claude Code** y todo corre con tu sesión de `claude auth login`
 (plan Pro o Max). No se usa `ANTHROPIC_API_KEY` en ningún momento.
 
 | | M3 | M3B |
 | --- | --- | --- |
-| Modelo | API de Anthropic (`ANTHROPIC_API_KEY`) | Claude Code (`claude login`) |
+| Modelo | API de Anthropic (`ANTHROPIC_API_KEY`) | Claude Code (`claude auth login`) |
 | Un agente es… | un `.py` con `SISTEMA`, herramientas y el bucle | un `.claude/agents/<nombre>.md` |
 | El bucle ReAct | lo escribes (`ejecutar_agente`, Lab 1A) | lo corre Claude Code; lo observas con `stream-json` |
 | Orquestación | LangGraph (`flujos/flujo_s*.py`) | un skill (`/fabrica`) con un guion y compuertas |
@@ -37,6 +37,7 @@ uv venv && source .venv/bin/activate
 uv pip install -r requirements.txt
 playwright install chromium          # solo sesiones 3 y 4
 unset ANTHROPIC_API_KEY              # para que Claude Code use tu suscripción
+claude auth login                    # solo la primera vez: inicia sesión con tu plan Pro o Max
 claude                               # 1.ª vez: acepta «¿confías en esta carpeta?»; luego usa los /comandos
 ```
 

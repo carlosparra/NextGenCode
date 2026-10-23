@@ -59,7 +59,7 @@ El curso se construye dos veces, con la misma fábrica y las mismas reglas:
 | Carpeta | Cómo se construyen los agentes | Qué necesitas |
 | --- | --- | --- |
 | [`M3/`](M3/) | Con la **API de Anthropic**: bucle de agente propio, LangGraph y el Claude Agent SDK | Una clave de API de Anthropic con créditos (`ANTHROPIC_API_KEY`) |
-| [`M3B/`](M3B/) | Con **Claude Code**: subagentes, skills, hooks y MCP | **Sin API key**: tu sesión de `claude login` (plan Pro o Max) |
+| [`M3B/`](M3B/) | Con **Claude Code**: subagentes, skills, hooks y MCP | **Sin API key**: tu sesión de `claude auth login` (plan Pro o Max) |
 
 Las reglas no cambian entre una y otra:
 
@@ -108,6 +108,7 @@ uv venv && source .venv/bin/activate
 uv pip install -r requirements.txt
 playwright install chromium        # solo sesiones 3 y 4
 unset ANTHROPIC_API_KEY            # para que Claude Code use tu suscripción
+claude auth login                  # solo la primera vez: inicia sesión con tu plan Pro o Max
 claude                             # la primera vez, acepta «¿confías en esta carpeta?»
 ```
 

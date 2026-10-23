@@ -2,7 +2,7 @@
 
 Programas cortos, uno por patrón, sobre el mismo dominio (empleados) y las mismas historias, para que lo
 único que cambie de un archivo a otro sea **la estructura**. Todos llaman al modelo con `claude -p`
-(ver `ejemplos/comun.py`), así que usan tu sesión de `claude login`.
+(ver `ejemplos/comun.py`), así que usan tu sesión de `claude auth login`.
 
 Se ejecutan desde la raíz de la sesión, con el entorno activado:
 

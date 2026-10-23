@@ -14,7 +14,7 @@ En M3B el bucle ya lo trae Claude Code; tú defines las otras tres piezas y, sob
 
 | Concepto del curso | En M3 (API) | En M3B (Claude Code) |
 | --- | --- | --- |
-| Modelo | `Anthropic()` + `ANTHROPIC_API_KEY` | `claude login` (tu suscripción) |
+| Modelo | `Anthropic()` + `ANTHROPIC_API_KEY` | `claude auth login` (tu suscripción) |
 | Instrucciones | `SISTEMA = """..."""` en `agentes/analista.py` | el cuerpo de `.claude/agents/analista.md` |
 | Herramientas | `herramientas_archivos(lectura, escritura)` | `tools: Read, Glob, Write` en el frontmatter |
 | Bucle ReAct | `ejecutar_agente()` en `agentes/base.py` (Lab 1A) | lo corre Claude Code; lo observas en `ejemplos/s1_razonamiento/react.py` |
@@ -43,7 +43,7 @@ hooks/compuerta.py (SubagentStop)  →  validadores/  →  ¿válido?
 
 ## Requisitos
 
-- Claude Code con sesión iniciada: `claude login` (plan Pro o Max). **No necesitas ANTHROPIC_API_KEY**;
+- Claude Code con sesión iniciada: `claude auth login` (plan Pro o Max). **No necesitas ANTHROPIC_API_KEY**;
   si la tienes definida en la terminal, Claude Code la usaría: quítala con `unset ANTHROPIC_API_KEY`.
 - Python 3.12 y `uv` (los hooks y validadores son Python).
 
