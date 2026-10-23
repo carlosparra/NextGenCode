@@ -3,10 +3,56 @@
 Una fábrica de software hecha con agentes: recibe una **historia de usuario** y entrega una aplicación web
 **construida, desplegada y probada**.
 
+```mermaid
+flowchart TD
+    HU[/"Historia de usuario<br/>historias/HU-xx.md"/]
+
+    subgraph S4a["Sesión 4 · seguridad"]
+        F["Agente 0 · Filtro de seguridad<br/>¿historia sospechosa?"]
+    end
+
+    subgraph S1["Sesión 1 · razonamiento"]
+        A["Agente 1 · Analista"] --> CR[("criterios.feature<br/>Gherkin")]
+        CR --> D["Agente 2 · Diseñador de pruebas"]
+        D --> CP[("casos_prueba.json")]
+    end
+
+    subgraph S2["Sesión 2 · flujos"]
+        P["Agente 3 · Plan"] --> H{{"👤 Una persona<br/>aprueba el plan"}}
+        H -- "rechaza (máx. 3)" --> P
+        H -- aprueba --> C["Agente 3 · Desarrollador<br/>FastAPI + React"]
+        C --> V{"Verificación<br/>¿arranca y compila?"}
+        V -- "falla (máx. 2)" --> C
+    end
+
+    subgraph S3["Sesión 3 · topologías"]
+        DE["Agente 4 · Despliegue<br/>Docker Compose"]
+        AU["Agente 5 · Automatizador<br/>pytest + Playwright"]
+        U(("unión"))
+        DE --> U
+        AU --> U
+    end
+
+    subgraph S4b["Sesión 4 · ciclo E2E"]
+        E{"Pruebas E2E<br/>¿pasan?"}
+        T["Agente 6 · Triage<br/>¿quién lo corrige?"]
+        E -- falla --> T
+        T -- "corrige (máx. 2 ciclos)" --> E
+    end
+
+    HU --> F
+    F -- ok --> A
+    F -- sospechosa --> B(["BLOQUEADA"])
+    CP --> P
+    V -- ok --> DE
+    V -- ok --> AU
+    U --> E
+    E -- pasan --> L(["✅ LISTA · reporte.md"])
+    T -. "tope alcanzado" .-> X(["ESCALAR A UNA PERSONA"])
 ```
-historia de usuario → criterios (Gherkin) → casos de prueba → plan aprobado por una persona
-                    → código (FastAPI + React) → contenedores (Docker) → pruebas E2E (Playwright) → reporte
-```
+
+Los «máx.» son los topes: **todo bucle tiene un límite**, y al llegar a él el flujo escala a una persona. Los rombos son
+verificaciones que hace el código, no el modelo; el hexágono es la persona que aprueba.
 
 El curso se construye dos veces, con la misma fábrica y las mismas reglas:
 
