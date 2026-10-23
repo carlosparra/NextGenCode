@@ -62,11 +62,16 @@ Los hooks se ejecutan con `.venv/bin/python`, así que el entorno debe existir e
    Si nunca iniciaste sesión, corre `claude auth login` (plan Pro o Max).
 2. Abre `claude` una vez en esta carpeta y acepta «¿confías en esta carpeta?».
 3. Corre **primero `/criterios` y después `/casos`**: el diseñador trabaja con lo que deja el analista.
+   **Espera a que `/criterios` termine** (Claude Code muestra «finished») antes de escribir `/casos`: si lo lanzas
+   mientras el analista sigue trabajando, el diseñador puede leer un `criterios.feature` a medias.
    - `/criterios` lanza al subagente **analista**, que escribe `salida/HU-01/criterios.feature`.
    - `/casos` lanza al **diseñador de pruebas**, que escribe `salida/HU-01/casos_prueba.json`.
 4. Al terminar cada uno, la **compuerta** valida su entrega y, si tiene problemas, lo regresa a corregir (máximo 3 veces).
+   Es normal ver algo como «la compuerta lo detuvo una vez porque a los escenarios 5 y 8 les faltaba el `Dado`, y el
+   agente lo agregó»: es el patrón de reflexión funcionando. La compuerta de `/casos` compara contra el
+   `criterios.feature` final, así que también detecta un escenario sin casos.
    Claude Code te puede pedir permiso para escribir el archivo: apruébalo o pulsa Shift+Tab para editar sin preguntar.
-5. Comprueba el resultado con el mismo juez de la compuerta:
+5. Comprueba el resultado con el mismo juez de la compuerta (si dice `Escenario sin casos: …`, vuelve a correr `/casos`):
    `python -m validadores.validar salida/HU-01/criterios.feature` y `python -m validadores.validar salida/HU-01/casos_prueba.json`.
 6. Repite con `HU-02` y `HU-03`.
 
@@ -83,7 +88,7 @@ Dentro de Claude Code (interactivo):
 ```
 /criterios historias/HU-01-registrar-empleado.md
 /casos salida/HU-01/criterios.feature
-/agents                      ← ver los subagentes del proyecto
+/skills                      ← ver los skills del proyecto (/criterios, /casos)
 /hooks                       ← ver los hooks registrados
 ```
 
