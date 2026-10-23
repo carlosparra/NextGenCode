@@ -1,0 +1,16 @@
+anthropic
+pydantic
+python-dotenv
+# ejemplos/comun.py importa ChatAnthropic (los ejemplos de LangGraph llegan en la sesión 2)
+langchain-anthropic
+# Sesión 2: flujos con LangGraph y Claude Code con el Agent SDK
+langgraph
+claude-agent-sdk
+httpx
+# Dependencias de la app generada (para verificarla fuera de Docker)
+fastapi
+uvicorn
+sqlalchemy
+email-validator
+# ejemplos/s2_flujos/evaluador.py usa pytest como juez
+pytest

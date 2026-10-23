@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+ejemplos/salidas/
+auditoria.jsonl
+flujos/salidas/
+app/frontend/node_modules/
+app/frontend/dist/
+app/backend/datos/
+.pytest_cache/

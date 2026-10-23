@@ -1,0 +1,5 @@
+anthropic
+pydantic
+python-dotenv
+# ejemplos/comun.py importa ChatAnthropic (los ejemplos de LangGraph llegan en la sesión 2)
+langchain-anthropic
