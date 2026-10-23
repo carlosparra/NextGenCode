@@ -35,7 +35,8 @@ def ejecutar_claude_code(prompt: str, *, agente: str, cwd: Path, herramientas: l
         system_prompt={"type": "preset", "preset": "claude_code", "append": instrucciones},
         setting_sources=["project"],              # carga el CLAUDE.md de cwd
         permission_mode="acceptEdits",            # edita sin pedir confirmación; los hooks ponen los límites
-        allowed_tools=herramientas,
+        tools=herramientas,                       # las únicas que existen para el agente (--tools)
+        allowed_tools=herramientas,               # y se usan sin pedir permiso (--allowedTools)
         disallowed_tools=["WebFetch", "WebSearch"],  # sin salida a internet: rompe la tríada letal
         hooks=hooks_para(agente, cwd, escritura, programas),
         max_turns=80,
